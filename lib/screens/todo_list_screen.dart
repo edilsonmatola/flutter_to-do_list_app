@@ -25,9 +25,14 @@ class ToDoListScreen extends StatelessWidget {
                 width: 8,
               ),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xff00d7f3),
+                  padding: EdgeInsets.all(14),
+                ),
                 onPressed: () {},
-                child: Text(
-                  '+',
+                child: Icon(
+                  Icons.add_outlined,
+                  size: 30,
                 ),
               ),
             ],
