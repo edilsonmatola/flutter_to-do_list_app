@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../models/todo_model.dart';
 import '../widgets/todo_list_item.dart';
 
 class ToDoListScreen extends StatefulWidget {
@@ -12,7 +13,7 @@ class ToDoListScreen extends StatefulWidget {
 class _ToDoListScreenState extends State<ToDoListScreen> {
   final TextEditingController todoTaskController = TextEditingController();
 
-  List<String> todoTasks = [];
+  List<TodoModel> todoTasks = [];
 
   @override
   Widget build(BuildContext context) {
@@ -45,10 +46,14 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                       ),
                       onPressed: () {
                         // * Retrieving the inserted form field text
-                        final task = todoTaskController.text;
+                        final taskTitle = todoTaskController.text;
                         setState(() {
+                          final newTask = TodoModel(
+                            title: taskTitle,
+                            dateTime: DateTime.now(),
+                          );
                           // * Render the screen to add the list
-                          todoTasks.add(task);
+                          todoTasks.add(newTask);
                         });
                         // * Clears text field after pressing the ADD button
                         todoTaskController.clear();
@@ -68,9 +73,9 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                     physics: const BouncingScrollPhysics(),
                     shrinkWrap: true,
                     children: [
-                      for (String todo in todoTasks)
+                      for (TodoModel todo in todoTasks)
                         TodoListItem(
-                          title: todo,
+                          todoTask: todo,
                         ),
                     ],
                   ),
