@@ -1,5 +1,12 @@
 # To-Do List App
 
+A simple user-friendly experience app.
+### Dependencies
+
+1. [Intl](https://pub.dev/packages/intl)
+
+1. [Flutter_Slidable](https://pub.dev/packages/flutter_slidable)
+
 ## Setup
 
 ##### Clone the repository
