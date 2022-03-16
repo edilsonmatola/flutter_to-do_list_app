@@ -76,6 +76,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                       for (TodoModel todo in todoTasks)
                         TodoListItem(
                           todoTask: todo,
+                          onDelete: onDelete,
                         ),
                     ],
                   ),
@@ -111,5 +112,13 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
         ),
       ),
     );
+  }
+
+// * Deleting a task
+  void onDelete(TodoModel todo) {
+    setState(() {
+      // Removing from  the task from the list
+      todoTasks.remove(todo);
+    });
   }
 }
