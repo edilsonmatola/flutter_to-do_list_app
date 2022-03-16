@@ -16,88 +16,92 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: todoTaskController,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Write a task...',
+    return SafeArea(
+      child: Scaffold(
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: todoTaskController,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Write a task...',
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Color(0xff00d7f3),
-                      padding: EdgeInsets.all(14),
+                    SizedBox(
+                      width: 8,
                     ),
-                    onPressed: () {
-                      // * Retrieving the inserted form field text
-                      final task = todoTaskController.text;
-                      setState(() {
-                        // * Render the screen to add the list
-                        todoTasks.add(task);
-                      });
-                      // * Clears text field after pressing the ADD button
-                      todoTaskController.clear();
-                    },
-                    child: Icon(
-                      Icons.add_outlined,
-                      size: 30,
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Color(0xff00d7f3),
+                        padding: EdgeInsets.all(14),
+                      ),
+                      onPressed: () {
+                        // * Retrieving the inserted form field text
+                        final task = todoTaskController.text;
+                        setState(() {
+                          // * Render the screen to add the list
+                          todoTasks.add(task);
+                        });
+                        // * Clears text field after pressing the ADD button
+                        todoTaskController.clear();
+                      },
+                      child: Icon(
+                        Icons.add_outlined,
+                        size: 30,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              Flexible(
-                child: ListView(
-                  physics: const BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  children: [
-                    for (String todo in todoTasks)
-                      TodoListItem(),
                   ],
                 ),
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      'You have ${todoTasks.length} pending tasks.',
-                    ),
+                SizedBox(
+                  height: 16,
+                ),
+                Flexible(
+                  child: ListView(
+                    physics: const BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    children: [
+                      for (String todo in todoTasks)
+                        TodoListItem(
+                          title: todo,
+                        ),
+                    ],
                   ),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Color(0xff00d7f3),
-                      padding: EdgeInsets.all(14),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'You have ${todoTasks.length} pending tasks.',
+                      ),
                     ),
-                    onPressed: () {},
-                    child: Text(
-                      'Clear',
+                    SizedBox(
+                      width: 8,
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Color(0xff00d7f3),
+                        padding: EdgeInsets.all(14),
+                      ),
+                      onPressed: () {},
+                      child: Text(
+                        'Clear',
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
