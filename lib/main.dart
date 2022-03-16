@@ -15,6 +15,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'To-Do List',
       theme: ThemeData(
+        // TODO: Add Light and Dark Theme support
+        // TODO: Use ThemeData to customize buttons color
         primarySwatch: Colors.blue,
       ),
       home: ToDoListScreen(),
