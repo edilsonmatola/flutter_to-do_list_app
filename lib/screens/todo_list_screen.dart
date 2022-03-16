@@ -11,29 +11,59 @@ class ToDoListScreen extends StatelessWidget {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Row(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Expanded(
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Write a task...',
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Write a task...',
+                      ),
+                    ),
                   ),
-                ),
+                  SizedBox(
+                    width: 8,
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xff00d7f3),
+                      padding: EdgeInsets.all(14),
+                    ),
+                    onPressed: () {},
+                    child: Icon(
+                      Icons.add_outlined,
+                      size: 30,
+                    ),
+                  ),
+                ],
               ),
               SizedBox(
-                width: 8,
+                height: 16,
               ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Color(0xff00d7f3),
-                  padding: EdgeInsets.all(14),
-                ),
-                onPressed: () {},
-                child: Icon(
-                  Icons.add_outlined,
-                  size: 30,
-                ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      'You have 0 pending tasks.',
+                    ),
+                  ),
+                  SizedBox(
+                    width: 8,
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xff00d7f3),
+                      padding: EdgeInsets.all(14),
+                    ),
+                    onPressed: () {},
+                    child: Text(
+                      'Clear',
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
