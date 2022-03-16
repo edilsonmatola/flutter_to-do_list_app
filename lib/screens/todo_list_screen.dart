@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/todo_list_item.dart';
+
 class ToDoListScreen extends StatefulWidget {
   ToDoListScreen({Key? key}) : super(key: key);
 
@@ -66,14 +68,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                   shrinkWrap: true,
                   children: [
                     for (String todo in todoTasks)
-                      ListTile(
-                        title: Text(
-                          todo,
-                        ),
-                        onTap: () {
-                          debugPrint('Task: $todo');
-                        },
-                      ),
+                      TodoListItem(),
                   ],
                 ),
               ),
