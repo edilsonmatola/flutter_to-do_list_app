@@ -15,6 +15,12 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
 
   List<TodoModel> todoTasks = [];
 
+  TodoModel?
+      deletedTodoTask; //Nullable because initially we don't have any task
+
+  int?
+      deletedTodoTaskPosition; //Retrieve the last deleted task position in the list
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -116,9 +122,32 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
 
 // * Deleting a task
   void onDelete(TodoModel todo) {
+    deletedTodoTask = todo;
+
+    deletedTodoTaskPosition = todoTasks.indexOf(todo);
+
     setState(() {
       // Removing from  the task from the list
       todoTasks.remove(todo);
     });
+    ScaffoldMessenger.of(context).clearSnackBars(); //Removing the last snackbar
+// * Undo functionality through snackbar
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: Duration(seconds: 5),
+        action: SnackBarAction(
+          textColor: const Color(0xff00d7f3),
+          label: 'Undo',
+          onPressed: () {
+            setState(() {
+              todoTasks.insert(deletedTodoTaskPosition!, deletedTodoTask!);
+            });
+          },
+        ),
+        content: Text(
+          '${todo.title} removed successfully!',
+        ),
+      ),
+    );
   }
 }
