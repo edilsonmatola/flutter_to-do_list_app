@@ -100,3 +100,7 @@ git push origin YourBranchName
 In order to discuss changes, you are welcome to [open an issue](https://github.com/edilsonmatola/flutter_to-do_list_app/issues/new/choose) about what you would like to contribute. Enhancements are always encouraged and appreciated.
 
 ## All the best! 🥇
+
+Sit and relax, you've made your contribution!
+
+For help getting started with Flutter, view the online documentation, which offers tutorials, samples, guidance on mobile development, and a full API reference.
