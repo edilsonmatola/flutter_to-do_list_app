@@ -15,6 +15,12 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
 
   List<TodoModel> todoTasks = [];
 
+  TodoModel?
+      deletedTodoTask; //Nullable because initially we don't have any task
+
+  int?
+      deletedTodoTaskPosition; //Retrieve the last deleted task position in the list
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -99,7 +105,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                         primary: Color(0xff00d7f3),
                         padding: EdgeInsets.all(14),
                       ),
-                      onPressed: () {},
+                      onPressed: showDeleteTodosConfirmationDialog,
                       child: Text(
                         'Clear',
                       ),
@@ -116,9 +122,82 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
 
 // * Deleting a task
   void onDelete(TodoModel todo) {
+    deletedTodoTask = todo;
+
+    deletedTodoTaskPosition = todoTasks.indexOf(todo);
+
     setState(() {
       // Removing from  the task from the list
       todoTasks.remove(todo);
+    });
+    ScaffoldMessenger.of(context).clearSnackBars(); //Removing the last snackbar
+// * Undo functionality through snackbar
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: Duration(seconds: 5),
+        action: SnackBarAction(
+          textColor: const Color(0xff00d7f3),
+          label: 'Undo',
+          onPressed: () {
+            setState(() {
+              todoTasks.insert(deletedTodoTaskPosition!, deletedTodoTask!);
+            });
+          },
+        ),
+        content: Text(
+          '${todo.title} removed successfully!',
+        ),
+      ),
+    );
+  }
+
+  void showDeleteTodosConfirmationDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(
+          'Clear everything?',
+        ),
+        content: Text(
+          'Are you sure you want to delete all the tasks?',
+        ),
+        actions: [
+          // * Cancel button
+          TextButton(
+            style: TextButton.styleFrom(
+              primary: Color(0xff00d7f3),
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text(
+              'Cancel',
+            ),
+          ),
+          // * Clean All
+          TextButton(
+            style: TextButton.styleFrom(
+              primary: Colors.red,
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+              deleteAllTodos();
+            },
+            child: Text(
+              'Clean all',
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+// TODO: Criar um if...else para alertar ao usuario que nao tem nenhuma tarefa para poder fazer o clean all
+  // * Clean (Delete) all todos
+  void deleteAllTodos() {
+    setState(() {
+      // Removes all objects from this list
+      todoTasks.clear();
     });
   }
 }
