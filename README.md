@@ -24,12 +24,7 @@ git clone https://github.com/edilsonmatola/flutter_to-do_list_app.git
 cd flutter_to-do_list_app
 ```
 
-3. Create Firebase Project
-4. Enable Authentication
-5. Make Firestore Rules
-6. Create Android, iOS & Web Apps
-
-### 7. To run the app, simply write the following commands:
+### 3. To run the app, simply write the following commands:
 
 ````bash
 flutter pub get
