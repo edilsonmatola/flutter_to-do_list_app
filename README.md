@@ -8,6 +8,8 @@ A simple user-friendly experience app.
 
 1. [Flutter_Slidable](https://pub.dev/packages/flutter_slidable)
 
+1. [Shared_Preferences](https://pub.dev/packages/shared_preferences)
+
 ## Installation
 
 ##### 1. Clone the repository
