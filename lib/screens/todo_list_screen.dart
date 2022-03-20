@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../bin/todo_bin.dart';
 import '../models/todo_model.dart';
 import '../widgets/todo_list_item.dart';
 
@@ -12,6 +13,7 @@ class ToDoListScreen extends StatefulWidget {
 
 class _ToDoListScreenState extends State<ToDoListScreen> {
   final TextEditingController todoTaskController = TextEditingController();
+  final TodoBin todoBin = TodoBin();
 
   List<TodoModel> todoTasks = [];
 
@@ -63,6 +65,8 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                         });
                         // * Clears text field after pressing the ADD button
                         todoTaskController.clear();
+                        // * Saving the updated todo list
+                        todoBin.saveTodoTaskList(todoTasks);
                       },
                       child: Icon(
                         Icons.add_outlined,
