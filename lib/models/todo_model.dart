@@ -6,4 +6,9 @@ class TodoModel {
 
   final String title;
   final DateTime dateTime;
+
+  Map<String, dynamic> toJson() => {
+        'title': title,
+        'dateTime': dateTime.toIso8601String(),
+      };
 }
