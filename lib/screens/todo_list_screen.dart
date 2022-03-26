@@ -24,6 +24,16 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
       deletedTodoTaskPosition; //Retrieve the last deleted task position in the list
 
   @override
+  void initState() {
+    super.initState();
+    todoBin.getTodoList().then((value) {
+      setState(() {
+        todoTasks = value;
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -134,6 +144,9 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
       // Removing from  the task from the list
       todoTasks.remove(todo);
     });
+    // Saving the list after deleting
+    todoBin.saveTodoTaskList(todoTasks);
+
     ScaffoldMessenger.of(context).clearSnackBars(); //Removing the last snackbar
 // * Undo functionality through snackbar
     ScaffoldMessenger.of(context).showSnackBar(
@@ -146,6 +159,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
             setState(() {
               todoTasks.insert(deletedTodoTaskPosition!, deletedTodoTask!);
             });
+            todoBin.saveTodoTaskList(todoTasks);
           },
         ),
         content: Text(
@@ -203,5 +217,6 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
       // Removes all objects from this list
       todoTasks.clear();
     });
+    todoBin.saveTodoTaskList(todoTasks);
   }
 }
