@@ -23,6 +23,18 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
   int?
       deletedTodoTaskPosition; //Retrieve the last deleted task position in the list
 
+  String? errorText;
+
+  @override
+  void initState() {
+    super.initState();
+    todoBin.getTodoList().then((value) {
+      setState(() {
+        todoTasks = value;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -38,9 +50,18 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                     Expanded(
                       child: TextField(
                         controller: todoTaskController,
+                        keyboardType: TextInputType.multiline,
+                        maxLines: null,
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(),
+                          border: InputBorder.none,
                           hintText: 'Write a task...',
+                          errorText: errorText,
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xff00d7f3),
+                              width: 2,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -55,6 +76,14 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                       onPressed: () {
                         // * Retrieving the inserted form field text
                         final taskTitle = todoTaskController.text;
+
+                        if (taskTitle.isEmpty) {
+                          setState(() {
+                            errorText = 'The task cannot be empty!';
+                          });
+                          return;
+                        }
+
                         setState(() {
                           final newTask = TodoModel(
                             title: taskTitle,
@@ -62,6 +91,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                           );
                           // * Render the screen to add the list
                           todoTasks.add(newTask);
+                          errorText = null;
                         });
                         // * Clears text field after pressing the ADD button
                         todoTaskController.clear();
@@ -109,7 +139,9 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                         primary: Color(0xff00d7f3),
                         padding: EdgeInsets.all(14),
                       ),
-                      onPressed: showDeleteTodosConfirmationDialog,
+                      onPressed: todoTasks.isEmpty
+                          ? null
+                          : showDeleteTodosConfirmationDialog,
                       child: Text(
                         'Clear',
                       ),
@@ -134,6 +166,9 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
       // Removing from  the task from the list
       todoTasks.remove(todo);
     });
+    // Saving the list after deleting
+    todoBin.saveTodoTaskList(todoTasks);
+
     ScaffoldMessenger.of(context).clearSnackBars(); //Removing the last snackbar
 // * Undo functionality through snackbar
     ScaffoldMessenger.of(context).showSnackBar(
@@ -146,10 +181,11 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
             setState(() {
               todoTasks.insert(deletedTodoTaskPosition!, deletedTodoTask!);
             });
+            todoBin.saveTodoTaskList(todoTasks);
           },
         ),
         content: Text(
-          '${todo.title} removed successfully!',
+          'task removed successfully!',
         ),
       ),
     );
@@ -203,5 +239,6 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
       // Removes all objects from this list
       todoTasks.clear();
     });
+    todoBin.saveTodoTaskList(todoTasks);
   }
 }
