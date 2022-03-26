@@ -14,7 +14,7 @@ Um aplicativo de lista de tarefas simples e amigável que permite excluir e desf
 
 ## Demonstração
 
-<img src="./media/login-screen-preview.png" width="30%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="./media/home-screen-preview.png" width="30%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="./media/profile-screen-preview.png" width="30%">
+<img src="./media/demo-1.png" width="30%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="./media/demo-2.png" width="30%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="./media/todo-app-demo.gif" width="30%">
 
 ### Dependências
 
