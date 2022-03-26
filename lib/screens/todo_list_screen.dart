@@ -139,7 +139,9 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                         primary: Color(0xff00d7f3),
                         padding: EdgeInsets.all(14),
                       ),
-                      onPressed: showDeleteTodosConfirmationDialog,
+                      onPressed: todoTasks.isEmpty
+                          ? null
+                          : showDeleteTodosConfirmationDialog,
                       child: Text(
                         'Clear',
                       ),
