@@ -12,6 +12,10 @@
 
 A simple user friendly To Do list app that allows you delete and undo the deleted task.
 
+### Demo
+
+<img src="./media/demo-1.png" width="30%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="./media/demo-2.png" width="30%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="./media/todo-app-demo.gif" width="30%">
+
 ### Dependencies
 
 1. [Intl](https://pub.dev/packages/intl)
