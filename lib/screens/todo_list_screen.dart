@@ -23,6 +23,8 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
   int?
       deletedTodoTaskPosition; //Retrieve the last deleted task position in the list
 
+  String? errorText;
+
   @override
   void initState() {
     super.initState();
@@ -48,9 +50,18 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                     Expanded(
                       child: TextField(
                         controller: todoTaskController,
+                        keyboardType: TextInputType.multiline,
+                        maxLines: null,
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(),
+                          border: InputBorder.none,
                           hintText: 'Write a task...',
+                          errorText: errorText,
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xff00d7f3),
+                              width: 2,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -65,6 +76,14 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                       onPressed: () {
                         // * Retrieving the inserted form field text
                         final taskTitle = todoTaskController.text;
+
+                        if (taskTitle.isEmpty) {
+                          setState(() {
+                            errorText = 'The task cannot be empty!';
+                          });
+                          return;
+                        }
+
                         setState(() {
                           final newTask = TodoModel(
                             title: taskTitle,
@@ -72,6 +91,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                           );
                           // * Render the screen to add the list
                           todoTasks.add(newTask);
+                          errorText = null;
                         });
                         // * Clears text field after pressing the ADD button
                         todoTaskController.clear();
@@ -163,7 +183,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
           },
         ),
         content: Text(
-          '${todo.title} removed successfully!',
+          'task removed successfully!',
         ),
       ),
     );
