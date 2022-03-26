@@ -1,6 +1,16 @@
+<details>
+<summary>
+<strong> Leia este guia em Português </strong>
+</summary>
+    <ul>
+        <li><a href="./README-PT-BR.md"> Português </a></li>
+    </ul>
+
+</details>
+
 # To-Do List App
 
-A simple user-friendly experience app.
+A simple user friendly To Do list app that allows you delete and undo the deleted task.
 
 ### Dependencies
 
